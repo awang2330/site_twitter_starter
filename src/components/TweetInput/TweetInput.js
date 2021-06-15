@@ -27,13 +27,10 @@ export default function TweetInput({addTweet}) {
 
   const handleOnSubmit = () => {
     addTweet({
-      id: -1,
-      name: `Code Path`,
-      handle: `codepath`,
       text: `${tweetTextChange}`,
-      comments: 445,
-      retweets: 121,
-      likes: 165000,
+      // comments: 0,
+      // retweets: 0,
+      // likes: 0,
     })
     setOnTweetTextChange("")
   }
