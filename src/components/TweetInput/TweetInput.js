@@ -24,6 +24,20 @@ export default function TweetInput({addTweet}) {
     }
   }
 
+
+  const handleOnSubmit = () => {
+    addTweet({
+      id: -1,
+      name: `Code Path`,
+      handle: `codepath`,
+      text: `${tweetTextChange}`,
+      comments: 445,
+      retweets: 121,
+      likes: 165000,
+    })
+    setOnTweetTextChange("")
+  }
+
   return (
     <div className="tweet-container">
       <div className="tweet-box-top row">
@@ -33,7 +47,7 @@ export default function TweetInput({addTweet}) {
           </i>
         </span>
 
-        <textarea name="new-tweet" type="text" placeholder="What's Happening?"
+        <textarea name="new-tweet" type="text" placeholder="What's Happening?" value={tweetTextChange}
           onChange={handleOnTweetTextChange} 
           onFocus={handleOnTweetTextFocus}
           onBlur={handleOnTweetTextClickOut} 
@@ -41,7 +55,7 @@ export default function TweetInput({addTweet}) {
         >
         </textarea>
 
-        <i className="fas fa-image"></i>
+        <i className={`fas ${tweetTextFocus === "Focused" ? "fa-smile" : "fa-image"}`}></i>
       </div>
       <div className=" row tweet-extras">
         <div className="icon-set">
@@ -51,11 +65,11 @@ export default function TweetInput({addTweet}) {
           <i className="fas fa-map-marker-alt"></i>
         </div>
 
-        <span className={`tweet-length`}>&nbsp;</span>
+        <span className={`tweet-length ${140 - tweetTextChange.length < 0 ? "red" : null}`}>&nbsp;{140 - tweetTextChange.length}</span>
 
         <div className="submit">
           <i className="fas fa-plus-circle"></i>
-          <button className="submit-button">Tweet</button>
+          <button className="submit-button" onClick={tweetTextChange !== "" && tweetTextChange.length <= 140 ? handleOnSubmit : null}>Tweet</button>
         </div>
       </div>
     </div>
