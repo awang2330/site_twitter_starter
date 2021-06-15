@@ -12,10 +12,10 @@ const firstTweet = {
   likes: 165000,
 }
 
-export default function Feed() {
+export default function Feed({tweets, addTweet}) {
   return (
     <div className="col feed">
-      <TweetInput />
+      <TweetInput addTweet={addTweet}/>
 
       <div className="see-new-tweets">
         <p>
@@ -26,7 +26,10 @@ export default function Feed() {
       <div className="twitter-feed">
         {/* example first tweet */}
         <Tweet tweet={firstTweet} />
-        {/* */}
+        {/* map all tweets */}
+        {tweets.map(tweetItem => (
+          <Tweet key={tweetItem.id} tweet={tweetItem}/>
+        ))}
       </div>
     </div>
   )

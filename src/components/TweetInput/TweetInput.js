@@ -1,6 +1,29 @@
 import "./TweetInput.css"
+import { useState } from "react"
 
-export default function TweetInput() {
+export default function TweetInput({addTweet}) {
+  const [tweetTextFocus, setTweetTextFocus] = useState("Not focused")
+  const [tweetTextChange, setOnTweetTextChange] = useState("")
+
+  /** Once the user clicks into the text area in the TweetInput component, 
+   * it should be given the expanded class and increase its height. */
+  const handleOnTweetTextFocus = () => {
+    setTweetTextFocus("Focused")
+  }
+
+  /** Sets the value of user text to tweetTextChange */
+  const handleOnTweetTextChange = (event) => {
+    setOnTweetTextChange(event.target.value) 
+  }
+
+  /** If the user hasn't written any text and they click out of the textarea, it should collapse. 
+   *  If they have written text, it should stay expanded. */
+  const handleOnTweetTextClickOut = () => {
+    if (tweetTextChange === "") {
+      setTweetTextFocus("Not focused")
+    }
+  }
+
   return (
     <div className="tweet-container">
       <div className="tweet-box-top row">
@@ -10,7 +33,13 @@ export default function TweetInput() {
           </i>
         </span>
 
-        <textarea name="new-tweet" type="text" placeholder="What's Happening?"></textarea>
+        <textarea name="new-tweet" type="text" placeholder="What's Happening?"
+          onChange={handleOnTweetTextChange} 
+          onFocus={handleOnTweetTextFocus}
+          onBlur={handleOnTweetTextClickOut} 
+          className={tweetTextFocus === "Focused" ? "expanded" : null} 
+        >
+        </textarea>
 
         <i className="fas fa-image"></i>
       </div>
